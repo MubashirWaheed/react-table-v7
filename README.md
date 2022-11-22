@@ -1,5 +1,5 @@
 # React Table v7
 
-Created suing react table
+Created using react table
 
 Live Site: https://react-table-v7.netlify.app
