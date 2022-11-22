@@ -1,35 +1,27 @@
-table {
+.table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 85%;
   margin: 25px;
   padding: 25px;
+  border-top: 0 !important;
 }
 
-table td,
-table th {
+.table .td,
+.table .th {
   border: 1px solid #ddd;
   padding: 8px;
-  /* display: "flex";
-  align-items: center;
-  justify-content: center; */
 }
 
-/* .table_div{
-   
-  margin: 25px;
-  padding: 25px;
-} */
-
-table tr:nth-child(even) {
+.table .tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-table tr:hover {
+.table .tr:hover {
   background-color: #ddd;
 }
 
-table th {
+.table .th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
@@ -38,9 +30,6 @@ table th {
 }
 
 .pagination_button_sales_table {
-  /* margin-top: 5px; */
-  /* margin-bottom: 5px; */
-  /* margin-right: 5px; */
   margin-left: 10px;
 }
 
@@ -70,4 +59,25 @@ table th {
   align-content: flex-start;
   justify-content: flex-start;
   gap: 10px;
+}
+.resize {
+  right: 0;
+  background: blue;
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+/* Newly added code */
+
+/* Below code is the width from EditableCell.js . */
+/* You wanted all the css to in the CSS file  */
+.table .td > .editable-cell {
+  width: 100%;
+}
+
+/* Below code removes the  annoying grey line  */
+.table > :not(:first-child) {
+  border-top: 0 !important;
 }

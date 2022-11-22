@@ -1,6 +1,6 @@
 import React from "react";
 import DropDownGeneral from "../Utilities/DropDownGeneral";
-import PaymentMethodTable from "./PaymentMethodTable";
+import PaymentMethodTable from "./PaymentMethodTable.example.";
 import PhotoJewelryTable from "./PhotoJewelryTable";
 import EmaiSupplierPaymentInfo from "./EmaiSupplierPaymentInfo";
 import DescriptionField from "./DescriptionField";
@@ -10,6 +10,7 @@ export const COLUMNS = [
     Header: "Date Sold",
     accessor: "created_at",
     type: "text",
+    // desired width for each column
     maxWidth: 175,
     minWidth: 100,
     width: 120,
@@ -44,6 +45,9 @@ export const COLUMNS = [
   // {
   //   Header: "Supplier",
   //   accessor: "Supplier",
+  // maxWidth: 150,
+  //   minWidth: 75,
+  //   width: 100,
   //   Cell: (cell) => (
   //     <DropDownGeneral
   //       CurrentValue={cell.value}
@@ -68,16 +72,19 @@ export const COLUMNS = [
     Header: "Description",
     accessor: "Description",
     type: "text",
-    Cell: () => <DescriptionField />,
-    // width: 500,
+    Cell: (cell) => <DescriptionField value={cell.row.values} />,
     maxWidth: 250,
     minWidth: 150,
     width: 200,
   },
 
+  // commneted for tesing purpose
   // {
   //   Header: "Paid Supplier",
   //   accessor: "PaidSupplier",
+  // maxWidth: 150,
+  //   minWidth: 75,
+  //   width: 100,
 
   //   Cell: (cell) => (
   //     <div className="paid_supplier">
@@ -116,7 +123,10 @@ export const COLUMNS = [
 
   {
     Header: "Payment method",
-
     Cell: (cell) => <PaymentMethodTable id={cell.row.values.id} />,
+    accessor: "payment",
+    maxWidth: 150,
+    minWidth: 75,
+    width: 100,
   },
 ];

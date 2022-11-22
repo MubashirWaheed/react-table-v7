@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { JewelryOrdersInfoContext } from "../../Context/JewelryOrdersContext";
+import "./JewelryOrdersTable.css";
 
 const EditableCell = ({ value, row, column }) => {
   const { onEditData, AddNewValueItemsUpdatedArray } = useContext(
@@ -7,6 +8,7 @@ const EditableCell = ({ value, row, column }) => {
   );
 
   const onChange = (e) => {
+    console.log("field: column.id", column.id);
     onEditData({
       id: row.values.id,
       field: column.id,
@@ -23,7 +25,7 @@ const EditableCell = ({ value, row, column }) => {
 
   return (
     <input
-      style={{ width: "100%" }}
+      // style={{ width: "100%" }}
       className="editable-cell"
       defaultValue={value}
       onBlur={onChange}

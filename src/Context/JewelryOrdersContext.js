@@ -8,14 +8,11 @@ import React, {
 import { find } from "lodash";
 
 export const JewelryOrdersInfoContext = createContext();
-// We decided to use a Context approach
-// for the YesNoDropDownTable because we wanted the JewelryOrdersTable to control the yes no drop-down from 
-// And we weren't able to do so via props
 
 export function JewelryOrdersContextProvider({ children }) {
   const [SalesInfo, setSalesInfo] = useState([]);
 
-  //Is the allowed data for a particular 
+  //Is the allowed data for a particular
   // attribute to be used later in a dropbox information
   const [allowedData, setAllowedData] = useState([]);
 
@@ -25,29 +22,26 @@ export function JewelryOrdersContextProvider({ children }) {
 
   const [ItemsUpdatedArray, setItemsUpdatedArray] = useState([]);
 
-
   async function fetchData() {
-
     const result = await fetch(`${process.env.REACT_APP_DATABASE}sales`);
 
+    const parsedResult = await result.json();
 
-    const parsedResult = await result.json()
+    const Orders = parsedResult.Orders;
+    // setSalesInfo(Orders)
 
-    const Orders = parsedResult.Orders
-    setSalesInfo(Orders)
-
-
+    setSalesInfo([]);
 
     // We are adding for the drop-down menus allowed values
     // in Colummns via session storage
-    // because we weren't able to find a different way to pass these values to Colummns 
+    // because we weren't able to find a different way to pass these values to Colummns
 
-
-    sessionStorage.setItem('allowedDataDropdown', JSON.stringify(parsedResult.allowedData))
-
+    sessionStorage.setItem(
+      "allowedDataDropdown",
+      JSON.stringify(parsedResult.allowedData)
+    );
   }
   useEffect(() => {
-
     fetchData();
   }, []);
 
@@ -68,25 +62,20 @@ export function JewelryOrdersContextProvider({ children }) {
     // AddNewValueItemsUpdatedArray
 
     var obj = find(SalesInfo, { id: id });
-    var original_id = obj['original_id']
-    AddNewValueItemsUpdatedArray(original_id)
-  }
-
-
+    var original_id = obj["original_id"];
+    AddNewValueItemsUpdatedArray(original_id);
+  };
 
   const AddNewValueItemsUpdatedArray = (ItemAdded) => {
-
-    let TempItemsUpdatedArray = ItemsUpdatedArray
+    let TempItemsUpdatedArray = ItemsUpdatedArray;
     // We are only interested to add this to the Array if it does not exist already
     // otherwise when updating DB we will be working twice as hard
-    let index = TempItemsUpdatedArray.indexOf(ItemAdded)
+    let index = TempItemsUpdatedArray.indexOf(ItemAdded);
     if (index < 0) {
-
-      TempItemsUpdatedArray.push(ItemAdded)
-      setItemsUpdatedArray(TempItemsUpdatedArray)
-
+      TempItemsUpdatedArray.push(ItemAdded);
+      setItemsUpdatedArray(TempItemsUpdatedArray);
     }
-  }
+  };
 
   return (
     <JewelryOrdersInfoContext.Provider
@@ -104,6 +93,5 @@ export function JewelryOrdersContextProvider({ children }) {
     </JewelryOrdersInfoContext.Provider>
   );
 }
-
 
 export default JewelryOrdersContextProvider;

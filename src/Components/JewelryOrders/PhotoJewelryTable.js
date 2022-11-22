@@ -8,9 +8,12 @@ function PhotoJewelryTable({ id }) {
 
   const [photo, setPhoto] = useState(
     // "https://www.caratsdirect2u.com/v/canon-photos/Stocks/default_photo_for_items.png"
+    // commented becuase of testing purposes
     "https://random.imagecdn.app/150/150"
   );
 
+  // commented becuase of testing purposes
+  // uncomment when using with backend
   useEffect(() => {
     // let img = obj.ItemUrl;
     // console.log(img);

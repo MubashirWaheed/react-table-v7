@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
 import {
   useTable,
   useSortBy,
@@ -26,10 +25,9 @@ import EditableCell from "./EditableCell";
 import { JewelryOrdersInfoContext } from "../../Context/JewelryOrdersContext";
 import { AlertAcrossApplicationContext } from "../../Context/AlertAcrossApplicationContext";
 import UpdatingDBMessage from "../Utilities/UpdatingDBMessage";
-// import "./JewelryOrdersTable.css";
+import "./JewelryOrdersTable.css";
 import data from "./MOCK_DATA.json";
-import { useResizeColumns, useFlexLayout, useBlockLayout } from "react-table";
-import "./new.css";
+import { useResizeColumns, useBlockLayout } from "react-table";
 // We decided to use a Context approach
 // for the YesNoDropDownTable because we wanted the JewelryOrdersTable to control the yes no drop-down from
 // And we weren't able to do so via props
@@ -60,10 +58,6 @@ function ReactTableSales() {
     () => ({
       Filter: ColumnFilter,
       Cell: EditableCell,
-
-      // width: 500,
-      // minWidth: 100,
-      // maxWidth: 200,
     }),
     []
   );
@@ -100,9 +94,7 @@ function ReactTableSales() {
     useSortBy,
     usePagination,
     useResizeColumns,
-    // useFlexLayout
     useBlockLayout
-    // useRowSelect
   );
 
   const { globalFilter, pageIndex, pageSize } = state;
@@ -228,17 +220,20 @@ function ReactTableSales() {
 
           <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
 
+          {/* chanegd table tags to div becuase useblocklayout hook does not work with  table tags (read documentation) */}
+          {/* For styling added classes for the same tag name */}
+
           {/* table */}
           <div
-            className="table_div"
+            className="table"
             {...getTableProps()}
             tripped
             bordered
             hover
-            size="sm"
+            // size="sm"
           >
             {/* thead */}
-            <div>
+            <div className="thead">
               {headerGroups.map((headerGroup) => (
                 <div {...headerGroup.getHeaderGroupProps()} className="tr">
                   {headerGroup.headers.map((column) => {
@@ -246,7 +241,11 @@ function ReactTableSales() {
                       <div {...column.getHeaderProps()} className="th">
                         <div {...column.getSortByToggleProps()}>
                           {column.render("Header")}
-                          <div {...column.getResizerProps()}>HEllo</div>
+                          {/* added this div so that column can be resized */}
+                          <div
+                            {...column.getResizerProps()}
+                            className="resize"
+                          ></div>
                         </div>
                         <div>
                           {column.canFilter ? column.render("Filter") : null}
@@ -270,20 +269,16 @@ function ReactTableSales() {
             </div>
 
             {/* tbody */}
-            <div {...getTableBodyProps()}>
+            <div {...getTableBodyProps()} className="tbody">
               {page.map((row) => {
                 prepareRow(row);
                 return (
                   // tr
-                  <div {...row.getRowProps()}>
+                  <div {...row.getRowProps()} className="tr">
                     {row.cells.map((cell) => {
                       return (
                         // td
-                        <div
-                          {...cell.getCellProps({
-                            style: { color: "blue" },
-                          })}
-                        >
+                        <div {...cell.getCellProps()} className="td">
                           {cell.render("Cell")}
                         </div>
                       );
